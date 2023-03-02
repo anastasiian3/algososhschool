@@ -229,13 +229,13 @@ export const ListPage: React.FC = () => {
             text={'Удалить из head'}
             onClick={deleteHead}
             isLoader={setButtonLoading(ActionType.DeleteHead)}
-            disabled={setButtonDisabled(ActionType.DeleteHead)}
+            disabled={setButtonDisabled(ActionType.DeleteHead) || list.getSize() === 0}
           />
           <Button
             text={'Удалить из tail'}
             onClick={deleteTail}
             isLoader={setButtonLoading(ActionType.DeleteTail)}
-            disabled={setButtonDisabled(ActionType.DeleteTail)}
+            disabled={setButtonDisabled(ActionType.DeleteTail) || list.getSize() === 0}
           />
         </div>
         <div className={styles.list__area_index}>
@@ -244,15 +244,16 @@ export const ListPage: React.FC = () => {
             value={inputIndex}
             onChange={handleInputIndexChange}
             type={'number'}
+            min={0}
           />
           <Button
             text={'Добавить по индексу'}
-            disabled={!inputIndex || !inputValue}
+            disabled={!inputIndex || !inputValue || Number(inputIndex) > list.getSize()}
             onClick={addValueByIndex}
           />
           <Button
             text={'Удалить по индексу'}
-            disabled={!inputIndex}
+            disabled={!inputIndex || Number(inputIndex) > list.getSize() - 1}
             onClick={deleteValueByIndex}
           />
         </div>
