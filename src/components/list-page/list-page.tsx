@@ -3,7 +3,7 @@ import { SolutionLayout } from '../ui/solution-layout/solution-layout';
 import styles from '../forms.module.css';
 import { Button } from '../ui/button/button';
 import { Input } from '../ui/input/input';
-import { getRandomArray, LinkedList } from './list-utils';
+import { LinkedList } from './list-utils';
 import { ActionType } from '../../types/action-types';
 import { SHORT_DELAY_IN_MS } from '../../constants/delays';
 import { Circle } from '../ui/circle/circle';
@@ -13,7 +13,8 @@ import { TArray } from '../../types/array';
 import { delayVisualisation } from '../../utils/utils';
 
 export const ListPage: React.FC = () => {
-  const list = useMemo(() => new LinkedList<string>(Array.from({ length: 4 }, () => getRandomArray(0, 99).toString())), []);
+  const initialValues = useMemo(() => ['0', '97', '81', '17'], []);
+  const list = useMemo(() => new LinkedList<string>(initialValues), [initialValues]);
   const [inputValue, setInputValue] = useState('');
   const [inputIndex, setInputIndex] = useState('');
   const [typeOfAction, setTypeOfAction] = useState<ActionType>();
@@ -212,30 +213,35 @@ export const ListPage: React.FC = () => {
             maxLength={4}
             value={inputValue}
             onChange={handleInputValueChange}
+            data-testid={'input-value'}
           />
           <Button
             text={'Добавить в head'}
             onClick={addToHead}
             isLoader={setButtonLoading(ActionType.AddToHead)}
             disabled={!inputValue || setButtonDisabled(ActionType.AddToHead)}
+            data-testid={'button-add-to-head'}
           />
           <Button
             text={'Добавить в tail'}
             onClick={addToTail}
             isLoader={setButtonLoading(ActionType.AddToTail)}
             disabled={!inputValue || setButtonDisabled(ActionType.AddToTail)}
+            data-testid={'button-add-to-tail'}
           />
           <Button
             text={'Удалить из head'}
             onClick={deleteHead}
             isLoader={setButtonLoading(ActionType.DeleteHead)}
             disabled={setButtonDisabled(ActionType.DeleteHead) || list.getSize() === 0}
+            data-testid={'button-delete-from-head'}
           />
           <Button
             text={'Удалить из tail'}
             onClick={deleteTail}
             isLoader={setButtonLoading(ActionType.DeleteTail)}
             disabled={setButtonDisabled(ActionType.DeleteTail) || list.getSize() === 0}
+            data-testid={'button-delete-from-tail'}
           />
         </div>
         <div className={styles.list__area_index}>
@@ -245,16 +251,19 @@ export const ListPage: React.FC = () => {
             onChange={handleInputIndexChange}
             type={'number'}
             min={0}
+            data-testid={'input-index'}
           />
           <Button
             text={'Добавить по индексу'}
             disabled={!inputIndex || !inputValue || Number(inputIndex) > list.getSize()}
             onClick={addValueByIndex}
+            data-testid={'button-add-by-index'}
           />
           <Button
             text={'Удалить по индексу'}
             disabled={!inputIndex || Number(inputIndex) > list.getSize() - 1}
             onClick={deleteValueByIndex}
+            data-testid={'button-delete-by-index'}
           />
         </div>
       </div>
