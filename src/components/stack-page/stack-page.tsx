@@ -88,18 +88,21 @@ export const StackPage: React.FC = () => {
           maxLength={4}
           onChange={onInputChange}
           value={inputValue}
+          data-testid={'input'}
         />
         <Button
           text={'Добавить'}
           disabled={!inputValue || setButtonDisabled(ActionType.Add) || stackArray.length > 19}
           isLoader={setButtonLoading(ActionType.Add)}
           type={'submit'}
+          data-testid={'button'}
         />
         <Button
           text={'Удалить'}
           onClick={handleDeleteItem}
           disabled={stackArray.length === 0 || setButtonDisabled(ActionType.Delete)}
           isLoader={setButtonLoading(ActionType.Delete)}
+          data-testid={'button_delete'}
         />
 
         <Button
@@ -108,6 +111,7 @@ export const StackPage: React.FC = () => {
           onClick={deleteAllStackItems}
           disabled={stackArray.length === 0 || setButtonDisabled(ActionType.DeleteAll)}
           isLoader={setButtonLoading(ActionType.DeleteAll)}
+          data-testid={'button_clear'}
         />
       </form>
       <ul className={`${styles.list} ${setJustifyContent}`}>

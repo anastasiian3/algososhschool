@@ -19,6 +19,9 @@ export const doSlcSortAscending = async (
   setIsLoading: Dispatch<SetStateAction<boolean>>,
   setArray: Dispatch<SetStateAction<TArrayNumber[]>>
 ) => {
+  if (arr.length < 2) {
+    return;
+  }
   setIsLoading(true);
   for (let i = 0; i < arr.length - 1; i++) {
     let minInd = i;
@@ -45,6 +48,9 @@ export const doSlcSortDescending = async (
   setIsLoading: Dispatch<SetStateAction<boolean>>,
   setArray: Dispatch<SetStateAction<TArrayNumber[]>>
 ) => {
+  if (arr.length < 2) {
+    return;
+  }
   setIsLoading(true);
   for (let i = 0; i < arr.length - 1; i++) {
     let maxInd = i;
@@ -71,6 +77,9 @@ export const doBblSortAscending = async (
   setIsLoading: Dispatch<SetStateAction<boolean>>,
   setArray: Dispatch<SetStateAction<TArrayNumber[]>>
 ) => {
+  if (arr.length < 2) {
+    return;
+  }
   setIsLoading(true);
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
@@ -93,6 +102,9 @@ export const doBblSortDescending = async (
   setIsLoading: Dispatch<SetStateAction<boolean>>,
   setArray: Dispatch<SetStateAction<TArrayNumber[]>>
 ) => {
+  if (arr.length < 2) {
+    return;
+  }
   setIsLoading(true);
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {

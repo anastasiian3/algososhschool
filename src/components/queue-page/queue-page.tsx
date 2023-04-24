@@ -95,18 +95,21 @@ export const QueuePage: React.FC = () => {
           isLimitText={true}
           maxLength={4}
           onChange={onInputChange}
+          data-testid={'input'}
         />
         <Button
           text={'Добавить'}
           disabled={!inputValue || queue.getTailIndex() === 7 || setButtonDisabled(ActionType.Add)}
           onClick={addItemToQueue}
           isLoader={setButtonLoading(ActionType.Add)}
+          data-testid={'button'}
         />
         <Button
           text={'Удалить'}
           onClick={deleteItemFromQueue}
           disabled={queue.isEmpty() || setButtonDisabled(ActionType.Delete)}
           isLoader={setButtonLoading(ActionType.Delete)}
+          data-testid={'button_delete'}
         />
         <Button
           text={'Очистить'}
@@ -114,6 +117,7 @@ export const QueuePage: React.FC = () => {
           disabled={queue.isEmpty() || setButtonDisabled(ActionType.DeleteAll)}
           onClick={deleteAllQueueItems}
           isLoader={setButtonLoading(ActionType.DeleteAll)}
+          data-testid={'button_clear'}
         />
       </div>
       <ul className={`${styles.list} `}>
@@ -124,8 +128,13 @@ export const QueuePage: React.FC = () => {
                 letter={item.value}
                 state={item.state}
                 index={index}
-                head={queue.getHeadIndex() === index ? 'top' : ''}
-                tail={queue.getTailIndex() - 1 === index ? 'tail' : ''}
+                head={
+                  (index === queue.getHeadIndex() && !queue.isEmpty()) ||
+                  (index === queue.getHeadIndex() && queue.getHeadIndex() === queue.getSize() - 1)
+                    ? 'top'
+                    : ''
+                }
+                tail={queue.getTailIndex() - 1 === index && !queue.isEmpty() ? 'tail' : ''}
               />
             </li>
           ))}

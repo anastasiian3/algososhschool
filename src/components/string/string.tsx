@@ -62,12 +62,14 @@ export const StringComponent: React.FC = () => {
           maxLength={11}
           value={inputValue}
           onChange={handleInputChange}
+          data-testid={'input'}
         />
         <Button
           text={'Развернуть'}
           disabled={!inputValue}
           isLoader={isLoader}
           type={'submit'}
+          data-testid={'button'}
         />
       </form>
       <ul className={styles.list}>

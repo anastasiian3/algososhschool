@@ -55,21 +55,27 @@ export const FibonacciPage: React.FC = () => {
           max={19}
           onChange={handleChange}
           value={number}
+          data-testid={'input'}
         />
         <Button
           text={'Рассчитать'}
           type={'submit'}
           isLoader={isLoading}
           disabled={!number || (Number(number) >= 1 && Number(number) <= 19 ? false : true)}
+          data-testid={'button'}
         />
       </form>
       <ul className={`${styles.list} ${setJustifyContent}`}>
         {fibonacciArray.map((number, index) => (
-          <Circle
+          <li
+            data-testid={'li'}
             key={key()}
-            letter={String(number)}
-            index={index}
-          />
+          >
+            <Circle
+              letter={String(number)}
+              index={index}
+            />
+          </li>
         ))}
       </ul>
     </SolutionLayout>
